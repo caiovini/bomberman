@@ -1,5 +1,12 @@
 import pygame as pg
 
+from os.path import join 
+
+path_blocks = join("assets" , "Blocks")
+path_flames = join("assets" , "Flame")
+path_bombs = join("assets" , "Bomb")
+
+
 class Tile(pg.sprite.Sprite):
 
     def __init__(self , image):
@@ -14,22 +21,22 @@ class Tile(pg.sprite.Sprite):
 class Grass(Tile):
 
     def __init__(self):
-        Tile.__init__(self , pg.image.load("assets\\Blocks\\BackgroundTile.png"))
+        Tile.__init__(self , pg.image.load( join(path_blocks , "BackgroundTile.png")))
 
 class Explodable(Tile):
 
     def __init__(self):
-        Tile.__init__(self , pg.image.load("assets\\Blocks\\ExplodableBlock.png"))
+        Tile.__init__(self , pg.image.load( join(path_blocks , "ExplodableBlock.png")))
 
 class Solid(Tile):
 
     def __init__(self):
-        Tile.__init__(self , pg.image.load("assets\\Blocks\\SolidBlock.png"))
+        Tile.__init__(self , pg.image.load( join(path_blocks , "SolidBlock.png")))
 
 class Portal(Tile):
 
     def __init__(self):
-        Tile.__init__(self , pg.image.load("assets\\Blocks\\Portal.png"))
+        Tile.__init__(self , pg.image.load( join(path_blocks , "Portal.png")))
 
 class Flame(Tile):
 
@@ -38,7 +45,7 @@ class Flame(Tile):
         self.position = 0
         self.count_down = 100
         for i in range(5):
-            self.images.append(pg.image.load("assets\\Flame\\Flame_f0" + str(i) + ".png"))
+            self.images.append(pg.image.load( join(path_flames , "Flame_f0" + str(i) + ".png")))
 
         Tile.__init__(self , self.images[self.position])
 
@@ -54,7 +61,7 @@ class Flame(Tile):
 class Bomb(Tile):
 
     def __init__(self):
-        Tile.__init__(self , pg.image.load("assets\\Bomb\\Bomb_f01.png"))
+        Tile.__init__(self , pg.image.load( join(path_bombs , "Bomb_f01.png")))
         self.count_down = 100
         self.explodables = []
 

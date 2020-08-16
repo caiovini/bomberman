@@ -2,6 +2,11 @@ from tilemap import Explodable , Solid , Grass , SCREEN_WIDTH , SCREEN_HEIGHT
 
 import pygame as pg
 
+from os.path import join 
+
+path_bomberman = join("assets" , "Bomberman")
+path_creep = join("assets" , "Creep")
+
 class Character(pg.sprite.Sprite):
 
     def __init__(self , materials):
@@ -110,16 +115,16 @@ class Bomberman(Character):
         for x , row in enumerate(materials):
             for i , column in enumerate(row):
                 if x == 0:
-                    column = pg.image.load("assets\\Bomberman\\Front\\Bman_F_f0" + str(i) + ".png").convert_alpha()
+                    column = pg.image.load( join(path_bomberman , "Front" , "Bman_F_f0" + str(i) + ".png")).convert_alpha()
                     materials[x][i] = pg.transform.scale(column , (40,40))
                 elif x == 1:
-                    column = pg.image.load("assets\\Bomberman\\Back\\Bman_B_f0" + str(i) + ".png").convert_alpha()
+                    column = pg.image.load( join(path_bomberman , "Back" , "Bman_B_f0" + str(i) + ".png")).convert_alpha()
                     materials[x][i] = pg.transform.scale(column , (40,40))
                 elif x == 2:
-                    column = pg.image.load("assets\\Bomberman\\Side\\Bman_F_f0" + str(i) + ".png").convert_alpha()
+                    column = pg.image.load( join(path_bomberman , "Side" , "Bman_F_f0" + str(i) + ".png")).convert_alpha()
                     materials[x][i] = pg.transform.scale(column , (40,40))
                 elif x == 3:
-                    column = pg.image.load("assets\\Bomberman\\Side\\Bman_F_f0" + str(i) + ".png").convert_alpha()
+                    column = pg.image.load( join(path_bomberman , "Side" , "Bman_F_f0" + str(i) + ".png")).convert_alpha()
                     column = pg.transform.scale(column , (40,40))
                     materials[x][i] = pg.transform.flip(column , True , False)
 
@@ -155,16 +160,16 @@ class Creep(Character):
         for x , row in enumerate(materials):
             for i , column in enumerate(row):
                 if x == 0:
-                    column = pg.image.load("assets\\Creep\\Front\\Creep_F_f0" + str(i) + ".png").convert_alpha()
+                    column = pg.image.load( join(path_creep , "Front" , "Creep_F_f0" + str(i) + ".png")).convert_alpha()
                     materials[x][i] = pg.transform.scale(column , (55,55))
                 elif x == 1:
-                    column = pg.image.load("assets\\Creep\\Back\\Creep_B_f0" + str(i) + ".png").convert_alpha()
+                    column = pg.image.load( join(path_creep , "Back" , "Creep_B_f0" + str(i) + ".png")).convert_alpha()
                     materials[x][i] = pg.transform.scale(column , (55,55))
                 elif x == 2:
-                    column = pg.image.load("assets\\Creep\\Side\\Creep_S_f0" + str(i) + ".png").convert_alpha()
+                    column = pg.image.load( join(path_creep , "Side" , "Creep_S_f0" + str(i) + ".png")).convert_alpha()
                     materials[x][i] = pg.transform.scale(column , (55,55))
                 elif x == 3:
-                    column = pg.image.load("assets\\Creep\\Side\\Creep_S_f0" + str(i) + ".png").convert_alpha()
+                    column = pg.image.load( join(path_creep , "Side" , "Creep_S_f0" + str(i) + ".png")).convert_alpha()
                     column = pg.transform.scale(column , (55,55))
                     materials[x][i] = pg.transform.flip(column , True , False)
 
