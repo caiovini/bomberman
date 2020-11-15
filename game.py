@@ -1,53 +1,63 @@
 import random
 import pygame as pg
 
-from tilemap import tilemap , Explodable , Solid , Grass , Bomb , Flame , Portal , SCREEN_HEIGHT , SCREEN_WIDTH
+from tilemap import (tilemap , 
+                     Explodable , 
+                     Solid , 
+                     Grass , 
+                     Bomb , 
+                     Flame , 
+                     Portal )
+from tilemap import SCREEN_HEIGHT , SCREEN_WIDTH
 from objects import Bomberman , Creep
 
 BLACK = (0 , 0 , 0)
 YELLOW = (255 , 255 , 0)
 
-def build_tiles(screen):
-    # Build map
-    global portal
-    indexX = 0
-    indexY = 0
-    grass = Grass()
-    for row in tilemap:
-        indexX = 0
-        for column in row:
-            column.update(indexX , indexY)
-            screen.blit(grass.image, column.rect)
-            screen.blit(column.image, column.rect)
-            if isinstance(column , (Portal)):
-                portal = column
-            indexX += 64
-        indexY += 64
-
-def check_exist_explodables():
-    for row in tilemap:
-        for column in row:
-            if isinstance(column , (Explodable)):
-                return True            
 
 if __name__ == "__main__":
-    global bomberman
-    global creep
 
     pg.init()
     screen = pg.display.set_mode((SCREEN_WIDTH , SCREEN_HEIGHT))
     pg.display.set_caption("Bomberman")
     font = pg.font.SysFont("Comic Sans MS", 50)
 
+    # Load bomberman, creep
+    bomberman = Bomberman()
+    creep = Creep()
+    portal = Portal()
+
+    def build_tiles():
+    
+        indexX = 0
+        indexY = 0
+        grass = Grass()
+        for row in tilemap:
+            indexX = 0
+            for column in row:
+                column.update(indexX , indexY)
+                screen.blit(grass.image, column.rect)
+                screen.blit(column.image, column.rect)
+                if isinstance(column , (Portal)):
+                    portal.rect = column.rect
+                indexX += 64
+            indexY += 64
+
+    def check_exist_explodables():
+        for row in tilemap:
+            for column in row:
+                if isinstance(column , (Explodable)):
+                    return True   
+
+   
+
     # Fill background in case of game over or victory
     s = pg.Surface((SCREEN_WIDTH , SCREEN_HEIGHT))
     s.set_alpha(128)
     s.fill((BLACK))  
 
-    # Load bomberman, creep and build map tiles
-    bomberman = Bomberman()
-    creep = Creep()
-    build_tiles(screen)
+    #Build tiles
+    build_tiles()
 
     # Move creep to initial position
     creep.control(650 , 510)
@@ -98,7 +108,7 @@ if __name__ == "__main__":
                 
         if cycle == 0:
             # direc is the direction where creep will move
-            direc = randon_keys[random.randrange(0 , 4)]
+            direc = random.choice(randon_keys)
             cycle = 20
             x , y = 0 , 0
 
@@ -119,7 +129,7 @@ if __name__ == "__main__":
         screen.blit(creep.image , creep.rect)
         screen.blit(bomberman.image , bomberman.rect)
         pg.display.flip()
-        build_tiles(screen)
+        build_tiles()
 
         # Game over if creep collides with bomberman
         if creep.collide_with_bomberman(bomberman) or is_game_over:

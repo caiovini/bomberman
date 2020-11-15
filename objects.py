@@ -139,8 +139,8 @@ class Bomberman(Character):
                         return column
 
     def collide_with_portal(self , portal):
-        if self.rect.colliderect(portal):
-            return True
+        return self.rect.colliderect(portal)
+
 
     def collide_with_flame(self , flames):
         for flame in flames:
@@ -176,5 +176,5 @@ class Creep(Character):
         Character.__init__(self , materials)
         
     def collide_with_bomberman(self , bomberman):
-        if self.rect.colliderect(bomberman):
-            return True   
+        return self.rect.colliderect(bomberman)
+        
