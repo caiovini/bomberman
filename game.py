@@ -1,4 +1,5 @@
 import random
+import sys
 import pygame as pg
 
 from tilemap import (tilemap , 
@@ -13,6 +14,8 @@ from objects import Bomberman , Creep
 
 BLACK = (0 , 0 , 0)
 YELLOW = (255 , 255 , 0)
+
+clock = pg.time.Clock()
 
 
 if __name__ == "__main__":
@@ -74,7 +77,7 @@ if __name__ == "__main__":
         randon_keys: creep moves up, down, right or left randomically
     """ 
     step , cycle = 4 , 0
-    is_running , is_game_over , is_game_win , is_key_down , bomb_is_dropping = True , False , False , False , False
+    is_running , is_game_over , is_game_win , is_key_down  = True , False , False , False 
     randon_keys = [ pg.K_UP , pg.K_DOWN , pg.K_LEFT , pg.K_RIGHT ]
     bombs , flames = [] , []
     while(is_running):
@@ -163,6 +166,7 @@ if __name__ == "__main__":
             if event.type == pg.QUIT:
                 pg.quit()
                 is_running = False
+                sys.exit(0)
 
             if event.type == pg.KEYUP:
                 is_key_down = False
@@ -172,6 +176,7 @@ if __name__ == "__main__":
                 if event.key == pg.K_ESCAPE:
                         pg.quit()
                         is_running = False
+                        sys.exit(0)
 
                 if not is_game_over and not is_game_win:
 
@@ -192,17 +197,14 @@ if __name__ == "__main__":
                         bomberman.control(y = -step , direction=pg.K_UP)
 
                     if event.key == pg.K_x:
-                        if not bomb_is_dropping:
-                            bomb_is_dropping = True
-                            # Create new bomb
-                            bomb = Bomb()
-                            obj = bomberman.find_position_bomb(objects=tilemap)
-                            bomb.update(obj.rect.x , obj.rect.y)
-                            bomb.find_position_explodable(objects=tilemap)
-                            bombs.append(bomb)
-                            bomb_is_dropping = False
+                        # Create new bomb
+                        bomb = Bomb()
+                        obj = bomberman.find_position_bomb(objects=tilemap)
+                        bomb.update(obj.rect.x , obj.rect.y)
+                        bomb.find_position_explodable(objects=tilemap)
+                        bombs.append(bomb)
 
-        pg.time.wait(20)
+        clock.tick(30) # FPS
         if is_key_down:  
             bomberman.update(objects=tilemap)
             screen.blit(creep.image , creep.rect)  

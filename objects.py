@@ -143,9 +143,7 @@ class Bomberman(Character):
 
 
     def collide_with_flame(self , flames):
-        for flame in flames:
-            if self.rect.colliderect(flame):
-                return True
+        return self.rect.collidelist(flames) >= 0
 
 class Creep(Character):
 
