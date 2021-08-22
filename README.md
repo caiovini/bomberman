@@ -27,3 +27,9 @@ at the bottom right of the map avoiding the creep that moves randomically.
 ## Assets
 
 All assets for this game can be found [here!](https://gamedevelopment.tutsplus.com/articles/enjoy-these-totally-free-bomberman-inspired-sprites--gamedev-8541)
+
+
+## Try it out
+
+
+replit [here](https://replit.com/@CaioVinicius18/bomberman?v=1)
